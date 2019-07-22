@@ -54,52 +54,54 @@ public class Clock{
 		 return false;
 	}
 	public Clock after(int seconds){
-		second+=seconds;
-		while(second>=60){
-			second-=60;
-			minute++;
+		Clock other=new Clock(year,month,day,hour,minute,second);
+		other.second+=seconds;
+		while(other.second>=60){
+			other.second-=60;
+			other.minute++;
 		}
-		while(minute>=60){
-			minute-=60;
-			hour++;
+		while(other.minute>=60){
+			other.minute-=60;
+			other.hour++;
 		}
-		while(hour>24){
-			hour-=24;
-			day++;
+		while(other.hour>24){
+			other.hour-=24;
+			other.day++;
 		}
-		while(day>CalMonthOfDay(year,month)){
-			day-=CalMonthOfDay(year,month);
-			month++;
+		while(other.day>CalMonthOfDay(year,month)){
+			other.day-=CalMonthOfDay(year,month);
+			other.month++;
 		}
-		while(month > 12) {
-			month-=12;
-			year ++;
+		while(other.month > 12) {
+			other.month-=12;
+			other.year ++;
 			}
-		return this;
+		return other;
 	}
 	public Clock before(int seconds){
-		second-=seconds;
-		while(second<0){
-			second+=60;
-			minute--;
+		Clock other=new Clock(year,month,day,hour,minute,second);
+		other.second-=seconds;
+		while(other.second<0){
+			other.second+=60;
+			other.minute--;
 		}
-		while(minute<0){
-			minute+=60;
-			hour--;
+		while(other.minute<0){
+			other.minute+=60;
+			other.hour--;
 		}
-		while(hour<0){
-			hour-=12;
-			day--;
+		while(other.hour<0){
+			other.hour-=12;
+			other.day--;
 		}
-		while(day<CalMonthOfDay(year,month)){
-			day-=CalMonthOfDay(year,month);
-			month--;
+		while(other.day<CalMonthOfDay(year,month)){
+			other.day-=CalMonthOfDay(year,month);
+			other.month--;
 		}
-		while(month<=0){
-			month-=12;
-			year++;
+		while(other.month<=0){
+			other.month-=12;
+			other.year++;
 		}
-		return this;
+		return other;
 	}
 	public String toString(){
 		return String.format("%4d-%02d-%02d %02d:%02d:%02d",year,month,day,hour,minute,second);
